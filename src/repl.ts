@@ -1,39 +1,40 @@
-import readline from "node:readline"
-import { cleanInput } from "./cleanInput.js"
-
+import readline from "node:readline";
+import { cleanInput } from "./cleanInput.js";
+import { getCommands } from "./commands.js";
 
 export function startREPL() {
-  // Create an interface for reading input
   const rl = readline.createInterface({
-    input: process.stdin,   // readable stream
-    output: process.stdout, // writable stream
-    prompt: "Pokedex > ",   // prompt string
-  })
+    input: process.stdin,
+    output: process.stdout,
+    prompt: "Pokedex > ",
+  });
 
-  // Display initial prompt
-  rl.prompt()
+  const commands = getCommands();
+  rl.prompt();
 
-  // When a line of input is entered
   rl.on("line", (line: string) => {
-    const cleaned = cleanInput(line)
+    const cleaned = cleanInput(line);
 
-    if (typeof cleaned === "string" || cleaned.length === 0) {
-      // Invalid or empty input
-      console.log(cleaned)
-      rl.prompt()
-      return
+    if (cleaned.length === 0) {
+      rl.prompt();
+      return;
     }
 
-    // Print the first command word
-    console.log(`Your command was: ${cleaned[0]}`)
+    const [commandName] = cleaned;
+    const command = commands[commandName];
 
-    // Show prompt again
-    rl.prompt()
-  })
+    if (!command) {
+      console.log("Unknown command");
+      rl.prompt();
+      return;
+    }
 
-  // Handle ctrl+c or exit
-  rl.on("close", () => {
-    console.log("Goodbye!")
-    process.exit(0)
-  })
+    try {
+      command.callback(commands);
+    } catch (err) {
+      console.error("Error executing command:", err);
+    }
+
+    rl.prompt();
+  });
 }
