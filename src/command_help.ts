@@ -1,10 +1,13 @@
+// src/command_help.ts
 import type { CLICommand } from "./command.js";
+import type { State } from "./state.js";
 
-export function commandHelp(commands: Record<string, CLICommand>) {
-  console.log("Welcome to the Pokedex!");
-  console.log("Usage:\n");
-
-  for (const cmd of Object.values(commands)) {
-    console.log(`${cmd.name}: ${cmd.description}`);
-  }
-}
+export const helpCommand: CLICommand = {
+  description: "Show available commands",
+  callback: (_args, state: State) => {
+    console.log("Available commands:");
+    for (const [name, cmd] of Object.entries(state.commands)) {
+      console.log(`- ${name}: ${cmd.description}`);
+    }
+  },
+};

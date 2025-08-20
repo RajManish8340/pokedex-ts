@@ -1,5 +1,8 @@
+// src/command.ts
+import type { State } from "./state.js";
+
 export type CLICommand = {
-  name: string;
   description: string;
-  callback: (commands: Record<string, CLICommand>) => void;
+  // Flexible callback signature: can accept args and state
+  callback: (args: string[], state: State) => void;
 };
