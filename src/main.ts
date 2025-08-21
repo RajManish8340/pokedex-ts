@@ -1,4 +1,3 @@
-// src/main.ts
 import { initState } from "./state.js";
 import { repl } from "./repl.js";
 
