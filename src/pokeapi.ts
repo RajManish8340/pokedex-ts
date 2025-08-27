@@ -48,8 +48,35 @@ export class PokeAPI {
       throw new Error(`Failed to fetch location ${locationName}: ${error}`);
     }
   }
+
+  async fetchPokemon(pokemonName:string) : Promise<Pokemon> {
+    const url = `${PokeAPI.baseURL}/pokemon/${pokemonName}`
+    try{
+      return await this.fetchWithCache<Pokemon>(url)
+    } catch(error) {
+      throw new Error (`Failed to fetch pokemon : ${pokemonName}: ${error}`)
+    }
+  }
 }
 
+export type Pokemon = {
+  id: number;
+  name: string;
+  base_experience: number;
+  height: number;
+  weight: number;
+  stats: Array<{
+    stat: {
+      name: string;
+    };
+    base_stat: number;
+  }>;
+  types: Array<{
+    type: {
+      name: string;
+    };
+  }>;
+};
 export type ShallowLocations = {
   count: number;
   next: string | null; // URL for the next page (or null if last page).

@@ -1,8 +1,18 @@
+
 import { cleanInput } from "./cleanInput.js";
 import type { State } from "./state.js";
 
 export function repl(state: State) {
-  state.rl.setPrompt("Pokedex > ");
+  // ANSI color codes
+  const reset = "\x1b[0m";
+  const green = "\x1b[32m";
+  const blue = "\x1b[34m";
+  const bold = "\x1b[1m";
+  
+  // Colorful prompt
+  const prompt = `${green}${bold}Pokedex${reset}${blue} > ${reset}`;
+  
+  state.rl.setPrompt(prompt);
   state.rl.prompt();
 
   state.rl.on("line", async (line) => {

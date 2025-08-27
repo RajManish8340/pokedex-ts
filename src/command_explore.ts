@@ -21,7 +21,7 @@ export const exploreCommand: CLICommand = {
         console.log(`- ${encounter.pokemon.name}`);
       }
     } catch (error) {
-      console.error(`Error exploring ${locationName}:`, error);
+      console.error(`Error exploring ${locationName}: ${error}`);
       console.log("Make sure you entered a valid location area name");
     }
   },
