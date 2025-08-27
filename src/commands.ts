@@ -8,5 +8,4 @@ export const commands: Record<string, CLICommand> = {
   exit: exitCommand,
   map: areaNamesCommand,
   mapb: areaNamesPrevCommand
-  // Add more commands here...
 };

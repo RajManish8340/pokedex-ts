@@ -12,11 +12,13 @@ describe.each([
   },
   {
     input: "",
-    expected: "please enter the valid names",
+    expected: `please enter the valid command
+        for available commands type "help"`,
   },
   {
     input: "       ",
-    expected: "please enter the valid names"
+    expected: `please enter the valid command
+        for available commands type "help"`
   },
 ])("cleanInput($input)", ({ input, expected }) => {
   test(`Expected: ${expected}`, () => {

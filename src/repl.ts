@@ -9,8 +9,9 @@ export function repl(state: State) {
     const cleanedInput = cleanInput(line);
     
     // Handle empty input or error message
+    //  cleaned input will onlyy return just string only if the command is empty
     if (typeof cleanedInput === "string") {
-      console.log(cleanedInput);
+      console.log(cleanedInput); 
       state.rl.prompt();
       return;
     }
@@ -24,6 +25,7 @@ export function repl(state: State) {
       } catch (error) {
         console.error("Error executing command:", error);
       }
+      // handles unknown command
     } else {
       console.log(`Unknown command: ${commandName}`);
     }
