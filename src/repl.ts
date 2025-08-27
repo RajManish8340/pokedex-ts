@@ -21,7 +21,7 @@ export function repl(state: State) {
 
     if (command) {
       try {
-        await command.callback(args, state);
+        await command.callback(state, ...args);
       } catch (error) {
         console.error("Error executing command:", error);
       }

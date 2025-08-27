@@ -3,7 +3,7 @@ import { State } from "./state.js";
 
 export const areaNamesCommand: CLICommand = {
     description: "displays the names of 20 location areas in the Pokemon world",
-    callback: async (_args, state: State) => {
+    callback: async (state: State) => {
         try {
             const locations = await state.pokeAPI.fetchLocations(state.nextLocationsURL);
             
@@ -23,7 +23,7 @@ export const areaNamesCommand: CLICommand = {
 
 export const areaNamesPrevCommand: CLICommand = {
     description: "displays the previous 20 location areas in the Pokemon world",
-    callback: async (_args, state: State) => {
+    callback: async ( state: State) => {
         if (!state.prevLocationsURL) {
             console.log("you're on the first page");
             return;
